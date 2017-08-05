@@ -9,11 +9,16 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class UsersController
 {
     /**
-     * UsersController constructor.
+     * @var UsersRepository
      */
-    public function __construct()
+    private $usersRepository;
+
+    /**
+     * @param UsersRepository $usersRepository
+     */
+    public function __construct(UsersRepository $usersRepository)
     {
-        $this->usersRepository = new UsersRepository;
+        $this->usersRepository = $usersRepository;
     }
 
     /**
