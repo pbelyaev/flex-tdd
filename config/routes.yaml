@@ -1,0 +1,9 @@
+users_index:
+    path: /users
+    defaults: { _controller: 'App\Controller\UsersController::index' }
+
+users_show:
+    path: /users/{id}
+    defaults: { _controller: 'App\Controller\UsersController::show' }
+    requirements:
+        id: \d+
