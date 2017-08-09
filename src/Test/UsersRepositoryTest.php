@@ -3,9 +3,9 @@
 namespace App\Test;
 
 use App\Repository\UsersRepository;
-use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class UsersRepositoryTest extends TestCase
+class UsersRepositoryTest extends KernelTestCase
 {
     /**
      * @var UsersRepository
@@ -34,10 +34,11 @@ class UsersRepositoryTest extends TestCase
 
     public function testReturnsRowById()
     {
-        $this->assertTrue(
-            is_array(
-                $this->usersRepository->findById(1)
-            )
-        );
+        $userId = 1;
+        $user = $this->usersRepository->findById($userId);
+
+        $this->assertTrue(is_array($user));
+        $this->assertArrayHasKey('id', $user);
+        $this->assertEquals($userId, $user['id']);
     }
 }

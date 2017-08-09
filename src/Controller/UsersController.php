@@ -39,9 +39,15 @@ class UsersController
      */
     public function show(int $id = 0): JsonResponse
     {
+        $user = $this->usersRepository->findById($id);
+
+        if (empty($user)) {
+            throw new NotFoundHttpException;
+        }
+
         return new JsonResponse([
             'status' => 'success',
-            'data' => $this->usersRepository->findById($id),
+            'data' => $user,
         ]);
     }
 }

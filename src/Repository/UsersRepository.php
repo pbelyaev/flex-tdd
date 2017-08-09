@@ -2,9 +2,9 @@
 
 namespace App\Repository;
 
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use App\Contract\Repository;
 
-class UsersRepository
+class UsersRepository implements Repository
 {
     /**
      * @var array
@@ -27,19 +27,14 @@ class UsersRepository
 
     /**
      * @param int $id
-     * @return array|bool
-     * @throws NotFoundHttpException
+     * @return mixed
      */
     public function findById(int $id)
     {
-        $matches = array_filter($this->items, function ($user) use ($id) {
+        $found = array_filter($this->items, function ($user) use ($id) {
             return $user['id'] === $id;
         });
 
-        if (0 === count($matches)) {
-            throw new NotFoundHttpException;
-        }
-
-        return $matches[0];
+        return empty($found) ? false : $found[0];
     }
 }

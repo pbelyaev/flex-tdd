@@ -2,11 +2,13 @@
 
 namespace App\Test;
 
-use PHPUnit\Framework\TestCase;
 use App\Controller\UsersController;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class UsersControllerTest extends TestCase
+class UsersControllerTest extends KernelTestCase
 {
     /**
      * @var UsersController
@@ -14,11 +16,19 @@ class UsersControllerTest extends TestCase
     private $controller;
 
     /**
+     * @var ContainerInterface
+     */
+    private $container;
+
+    /**
      * @return void
      */
     public function setUp()
     {
-        $this->controller = new UsersController;
+        self::bootKernel();
+
+        $this->container = self::$kernel->getContainer();
+        $this->controller = $this->container->get(UsersController::class);
     }
 
     /**
@@ -80,7 +90,7 @@ class UsersControllerTest extends TestCase
     {
         $this->assertInstanceOf(
             JsonResponse::class,
-            $this->controller->show()
+            $this->controller->show(1)
         );
     }
 
@@ -101,7 +111,7 @@ class UsersControllerTest extends TestCase
     public function testShowReturnsJson()
     {
         $this->assertJson(
-            $this->controller->show()->getContent()
+            $this->controller->show(1)->getContent()
         );
     }
 
@@ -110,9 +120,8 @@ class UsersControllerTest extends TestCase
      */
     public function testShowReturnsFailStatusCode()
     {
-        $this->assertEquals(
-            404,
-            $this->controller->show()->getStatusCode()
-        );
+        $this->expectException(NotFoundHttpException::class);
+
+        $this->controller->show();
     }
 }
