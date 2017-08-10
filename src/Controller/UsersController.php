@@ -6,7 +6,6 @@ use App\Repository\UsersRepository;
 use App\Response\UsersControllerShowFailResponse;
 use App\Response\UsersControllerShowSuccessResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UsersController
 {
@@ -36,7 +35,7 @@ class UsersController
 
     /**
      * @param int $id
-     * @return UsersControllerShowSuccessResponse|UsersControllerShowFailResponse
+     * @return mixed
      */
     public function show(int $id = 0)
     {

@@ -7,11 +7,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class UsersControllerShowFailResponse
 {
     /**
-     * @return void
-     * @throws NotFoundHttpException
+     * @return NotFoundHttpException
      */
-    public function toResponse()
+    public function throwException(): NotFoundHttpException
     {
-        throw new NotFoundHttpException;
+        return new NotFoundHttpException;
     }
 }
