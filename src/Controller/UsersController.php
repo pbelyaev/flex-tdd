@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Repository\UsersRepository;
+use App\Response\UsersControllerIndexSuccessResponse;
 use App\Response\UsersControllerShowFailResponse;
 use App\Response\UsersControllerShowSuccessResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class UsersController
 {
@@ -23,14 +23,13 @@ class UsersController
     }
 
     /**
-     * @return JsonResponse
+     * @return UsersControllerIndexSuccessResponse
      */
-    public function index(): JsonResponse
+    public function index(): UsersControllerIndexSuccessResponse
     {
-        return new JsonResponse([
-            'status' => 'success',
-            'data' => $this->usersRepository->getAll(),
-        ]);
+        return new UsersControllerIndexSuccessResponse(
+            $this->usersRepository->getAll()
+        );
     }
 
     /**

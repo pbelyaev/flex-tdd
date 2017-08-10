@@ -23,6 +23,7 @@
             <directory suffix=".php">./src/Controller</directory>
             <directory suffix=".php">./src/Repository</directory>
             <directory suffix=".php">./src/Contract</directory>
+            <directory suffix=".php">./src/Response</directory>
         </whitelist>
     </filter>
 

@@ -3,10 +3,11 @@
 namespace App\Test;
 
 use App\Controller\UsersController;
+use App\Response\UsersControllerIndexSuccessResponse;
+use App\Response\UsersControllerShowFailResponse;
+use App\Response\UsersControllerShowSuccessResponse;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UsersControllerTest extends KernelTestCase
 {
@@ -23,7 +24,7 @@ class UsersControllerTest extends KernelTestCase
     /**
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         self::bootKernel();
 
@@ -34,7 +35,7 @@ class UsersControllerTest extends KernelTestCase
     /**
      * @return void
      */
-    public function testHasIndexMethod()
+    public function testHasIndexMethod(): void
     {
         $this->assertTrue(
             method_exists($this->controller, 'index')
@@ -44,10 +45,10 @@ class UsersControllerTest extends KernelTestCase
     /**
      * @return void
      */
-    public function testIndexReturnsJsonResponse()
+    public function testIndexReturnsSuccessResponse(): void
     {
         $this->assertInstanceOf(
-            JsonResponse::class,
+            UsersControllerIndexSuccessResponse::class,
             $this->controller->index()
         );
     }
@@ -55,28 +56,7 @@ class UsersControllerTest extends KernelTestCase
     /**
      * @return void
      */
-    public function testIndexReturnsSuccessStatusCode()
-    {
-        $this->assertEquals(
-            200,
-            $this->controller->index()->getStatusCode()
-        );
-    }
-
-    /**
-     * @return void
-     */
-    public function testIndexReturnsJson()
-    {
-        $this->assertJson(
-            $this->controller->index()->getContent()
-        );
-    }
-
-    /**
-     * @return void
-     */
-    public function testHasShowMethod()
+    public function testHasShowMethod(): void
     {
         $this->assertTrue(
             method_exists($this->controller, 'show')
@@ -86,10 +66,10 @@ class UsersControllerTest extends KernelTestCase
     /**
      * @return void
      */
-    public function testShowReturnsJsonResponse()
+    public function testShowReturnsSuccessResponse(): void
     {
         $this->assertInstanceOf(
-            JsonResponse::class,
+            UsersControllerShowSuccessResponse::class,
             $this->controller->show(1)
         );
     }
@@ -97,31 +77,11 @@ class UsersControllerTest extends KernelTestCase
     /**
      * @return void
      */
-    public function testShowReturnsSuccessStatusCode()
+    public function testShowReturnsFailResponse(): void
     {
-        $this->assertEquals(
-            200,
-            $this->controller->show(1)->getStatusCode()
+        $this->assertInstanceOf(
+            UsersControllerShowFailResponse::class,
+            $this->controller->show(0)
         );
-    }
-
-    /**
-     * @return void
-     */
-    public function testShowReturnsJson()
-    {
-        $this->assertJson(
-            $this->controller->show(1)->getContent()
-        );
-    }
-
-    /**
-     * @return void
-     */
-    public function testShowReturnsFailStatusCode()
-    {
-        $this->expectException(NotFoundHttpException::class);
-
-        $this->controller->show();
     }
 }
