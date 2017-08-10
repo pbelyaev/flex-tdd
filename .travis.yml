@@ -5,4 +5,4 @@ install:
     - cp .env.dist .env
     - composer install
 script:
-    - $COMPOSER_BIN_DIR/phpunit
+    - vendor/bin/phpunit
