@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Repository\UsersRepository;
+use App\Response\UsersControllerShowFailResponse;
+use App\Response\UsersControllerShowSuccessResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -34,20 +36,16 @@ class UsersController
 
     /**
      * @param int $id
-     * @return JsonResponse
-     * @throws NotFoundHttpException
+     * @return UsersControllerShowSuccessResponse|UsersControllerShowFailResponse
      */
-    public function show(int $id = 0): JsonResponse
+    public function show(int $id = 0)
     {
         $user = $this->usersRepository->findById($id);
 
         if (empty($user)) {
-            throw new NotFoundHttpException;
+            return new UsersControllerShowFailResponse;
         }
 
-        return new JsonResponse([
-            'status' => 'success',
-            'data' => $user,
-        ]);
+        return new UsersControllerShowSuccessResponse($user);
     }
 }

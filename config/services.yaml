@@ -27,3 +27,10 @@ services:
         resource: '../src/Controller'
         public: true
         tags: ['controller.service_arguments']
+
+    # response.event kernel listener
+    # this listener renders custom response
+    kernel.listener.response_kernel_listener:
+        class: App\EventListener\ResponseEventListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.view, method: onKernelView }
