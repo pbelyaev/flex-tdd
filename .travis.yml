@@ -2,6 +2,7 @@ language: php
 php:
     - '7.1'
 install:
+    - cp .env.dist .env
     - composer install
 script:
     - $COMPOSER_BIN_DIR/phpunit
