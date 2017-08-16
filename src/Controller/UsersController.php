@@ -6,8 +6,9 @@ use App\Repository\UsersRepository;
 use App\Response\UsersControllerIndexSuccessResponse;
 use App\Response\UsersControllerShowFailResponse;
 use App\Response\UsersControllerShowSuccessResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class UsersController
+class UsersController extends Controller
 {
     /**
      * @var UsersRepository
