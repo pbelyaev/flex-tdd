@@ -2,9 +2,10 @@
 
 namespace App\Response;
 
+use App\Contract\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class UsersControllerShowFailResponse
+class UsersControllerShowFailResponse implements Response
 {
     /**
      * @return NotFoundHttpException

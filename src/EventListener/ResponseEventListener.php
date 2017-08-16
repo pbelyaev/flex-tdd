@@ -2,6 +2,7 @@
 
 namespace App\EventListener;
 
+use App\Contract\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 
 class ResponseEventListener
@@ -13,10 +14,8 @@ class ResponseEventListener
     {
         $controllerResult = $event->getControllerResult();
 
-        /* First check that controller result is an object */
-        /* Unfortunately, it does not have any interfaces to implement, so it cannot check if it is custom response */
-        /* TODO: create an interface and add validation */
-        if (is_object($controllerResult)) {
+        /* First check that the controller result implements Response interface */
+        if ($controllerResult instanceof Response) {
             /* If there is toResponse method then use given response */
             if (method_exists($controllerResult, 'toResponse')) {
                 $event->setResponse(

@@ -2,9 +2,10 @@
 
 namespace App\Response;
 
+use App\Contract\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class UsersControllerIndexSuccessResponse
+class UsersControllerIndexSuccessResponse implements Response
 {
     /**
      * @var array
