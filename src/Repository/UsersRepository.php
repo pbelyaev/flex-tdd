@@ -35,6 +35,6 @@ class UsersRepository implements Repository
             return $user['id'] === $id;
         });
 
-        return empty($found) ? false : $found[0];
+        return array_pop($found) || false;
     }
 }
