@@ -7,3 +7,7 @@ users_show:
     defaults: { _controller: 'App\Controller\UsersController::show' }
     requirements:
         id: \d+
+
+podcasts_index:
+    path: /v1/podcasts
+    defaults: { _controller: 'App\Controller\PodcastsController::index' }
