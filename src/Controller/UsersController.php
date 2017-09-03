@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Contract\Response;
 use App\Repository\UsersRepository;
 use App\Response\UsersControllerIndexSuccessResponse;
 use App\Response\UsersControllerShowFailResponse;
@@ -24,9 +25,9 @@ class UsersController extends Controller
     }
 
     /**
-     * @return UsersControllerIndexSuccessResponse
+     * @return Response
      */
-    public function index(): UsersControllerIndexSuccessResponse
+    public function index(): Response
     {
         return new UsersControllerIndexSuccessResponse(
             $this->usersRepository->getAll()
@@ -35,9 +36,9 @@ class UsersController extends Controller
 
     /**
      * @param int $id
-     * @return mixed
+     * @return Response
      */
-    public function show(int $id = 0)
+    public function show(int $id = 0): Response
     {
         $user = $this->usersRepository->findById($id);
 
